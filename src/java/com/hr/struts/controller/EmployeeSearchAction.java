@@ -26,10 +26,10 @@ public final class EmployeeSearchAction extends SuperAction {
         String ssNum = searchForm.getSsNum();
         String phone = searchForm.getPhone();
         if (name != null && name.trim().length() > 0) {
-            //results = service.searchByName(name, connexion(request, response));
+            results = service.searchByName(name, connexion(request, response));
         } else if(ssNum != null && ssNum.trim().length() > 0) {
-            //results = service.searchBySsNum(ssNum.trim(), connexion(request, response));
-        } else{
+            results = service.searchBySsNum(ssNum.trim(), connexion(request, response));
+        } else {
             results = service.searchByPhone(phone.trim(), connexion(request, response));
         }
         
