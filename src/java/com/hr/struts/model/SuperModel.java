@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class SuperModel {
 
-    String driver, url, login, pwd;
+    protected String driver, url, login, pwd;
 
     // recuperation de la connexion
     protected Connection getConnection() throws SQLException {

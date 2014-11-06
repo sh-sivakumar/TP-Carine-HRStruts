@@ -45,8 +45,7 @@ public final class EmployeeSearchAction extends SuperAction {
         } else {
             results = service.searchByTransfer(3,phone.trim());
         }
-        
-        
+ 
         // Place search results in EmployeeSearchForm bean for access in the JSP. 
         searchForm.setResults(results);
         

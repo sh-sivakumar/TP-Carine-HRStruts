@@ -71,6 +71,8 @@ public class EmployeeManagement extends SuperModel{
 
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conn.close();
         }
         
         return arrayList;
@@ -182,6 +184,8 @@ public class EmployeeManagement extends SuperModel{
 
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conn.close();
         }
         
         return arrayList;

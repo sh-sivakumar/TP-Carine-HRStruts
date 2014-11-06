@@ -77,7 +77,7 @@ public final class EmployeesShowAction extends SuperAction {
 
         // Cible par defaut
         String cible = new String("succes");
-
+        
         // Cible en cas d'echec
         if (results == null) {
             cible = new String("echec");
