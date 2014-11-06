@@ -26,6 +26,7 @@ public class EmployeeManagement extends SuperModel{
         return service;
     }
     
+    /*
     public ArrayList<Employee> searchByTransfer(int type, String value) throws SQLException {
         String requete = "";
         
@@ -74,7 +75,89 @@ public class EmployeeManagement extends SuperModel{
         
         return arrayList;
     }
+    */
     
+    // Search for employees by name.
+    public ArrayList<Employee> searchByName(String name) throws SQLException {
+        Connection conn = getConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Employee> arrayList = new ArrayList<Employee>();
+        Employee employe = null;
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select name, ssNum, phone from employes "
+                    + "where name like '%"+name+"%'");
+
+            while (rs.next()) {
+                employe = new Employee(rs.getString("name"),
+                        rs.getString("ssNum"), rs.getString("phone"));
+                arrayList.add(employe);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return arrayList;
+    }
+
+    // Search for employee by social security number. 
+    public ArrayList<Employee> searchBySsNum(String ssNum) throws SQLException {
+        Connection conn = getConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Employee> arrayList = new ArrayList<Employee>();
+        Employee employe = null;
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select name, ssNum, phone from employes "
+                    + "where ssNum = '" + ssNum + "'");
+
+            while (rs.next()) {
+                employe = new Employee(rs.getString("name"),
+                        rs.getString("ssNum"), rs.getString("phone"));
+                arrayList.add(employe);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return arrayList;
+    }
+
+    // Search for employee by phone.
+    public ArrayList<Employee> searchByPhone(String phone) throws SQLException {
+        Connection conn = getConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Employee> arrayList = new ArrayList<Employee>();
+        Employee employe = null;
+        
+        try {
+            System.err.println(phone);
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select name, ssNum, phone from employes "
+                    + "where phone = '" + phone + "'");
+
+
+            while (rs.next()) {
+                employe = new Employee(rs.getString("name"),
+                        rs.getString("ssNum"), rs.getString("phone"));
+                arrayList.add(employe);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return arrayList;
+    }
+    
+
     public boolean delete(Employee get) {
         //a faire
         return true;
