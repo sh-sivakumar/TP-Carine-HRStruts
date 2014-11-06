@@ -28,11 +28,11 @@ public final class EmployeeSearchAction extends SuperAction {
         String ssNum = searchForm.getSsNum();
         String phone = searchForm.getPhone();
         if (name != null && name.trim().length() > 0) {
-            results = service.searchByName(name);
+            results = service.searchByTransfer(1,name);
         } else if(ssNum != null && ssNum.trim().length() > 0) {
-            results = service.searchBySsNum(ssNum.trim());
+            results = service.searchByTransfer(2,ssNum.trim());
         } else {
-            results = service.searchByPhone(phone.trim());
+            results = service.searchByTransfer(3,phone.trim());
         }
         
         // Place search results in EmployeeSearchForm bean for access in the JSP. 
