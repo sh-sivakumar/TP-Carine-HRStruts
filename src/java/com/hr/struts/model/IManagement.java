@@ -5,14 +5,16 @@
  */
 package com.hr.struts.model;
 
-import com.hr.struts.model.entities.Employee;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
  * @author franckmazzolo
+ * @param <Entity>
  */
-public interface IEmployeeManagement {
-    public boolean add(Employee get);
-    public boolean delete(Employee get);
-    public boolean update(Employee get);
+public interface IManagement<Entity> {
+    public boolean add(Entity get);
+    public boolean delete(Entity e);
+    public ArrayList<Entity> findAll() throws SQLException;
 }

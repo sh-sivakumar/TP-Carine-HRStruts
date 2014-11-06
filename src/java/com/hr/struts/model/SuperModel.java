@@ -32,6 +32,10 @@ public class SuperModel {
         return DriverManager.getConnection(url, login, pwd);
     }
 
+    /**
+     * 
+     * @param properties 
+     */
     public void setConnectionInfo(Properties properties) {
         this.driver = properties.getProperty("driver", "Sans Driver");
         this.url = properties.getProperty("url", "Sans URL");
