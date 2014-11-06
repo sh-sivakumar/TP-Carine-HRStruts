@@ -27,6 +27,8 @@ public final class EmployeeSearchAction extends SuperAction {
         String name = searchForm.getName();
         String ssNum = searchForm.getSsNum();
         String phone = searchForm.getPhone();
+        
+        /*
         if (name != null && name.trim().length() > 0) {
             results = service.searchByName(name);
         } else if(ssNum != null && ssNum.trim().length() > 0) {
@@ -34,8 +36,8 @@ public final class EmployeeSearchAction extends SuperAction {
         } else {
             results = service.searchByPhone(phone.trim());
         }
+        */
         
-        /*
         if (name != null && name.trim().length() > 0) {
             results = service.searchByTransfer(1,name);
         } else if(ssNum != null && ssNum.trim().length() > 0) {
@@ -43,7 +45,7 @@ public final class EmployeeSearchAction extends SuperAction {
         } else {
             results = service.searchByTransfer(3,phone.trim());
         }
-        */
+        
         
         // Place search results in EmployeeSearchForm bean for access in the JSP. 
         searchForm.setResults(results);

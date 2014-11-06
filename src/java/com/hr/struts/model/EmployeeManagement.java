@@ -26,7 +26,7 @@ public class EmployeeManagement extends SuperModel{
         return service;
     }
     
-    /*
+    
     public ArrayList<Employee> searchByTransfer(int type, String value) throws SQLException {
         String requete = "";
         
@@ -75,8 +75,8 @@ public class EmployeeManagement extends SuperModel{
         
         return arrayList;
     }
-    */
     
+    /*
     // Search for employees by name.
     public ArrayList<Employee> searchByName(String name) throws SQLException {
         Connection conn = getConnection();
@@ -156,7 +156,7 @@ public class EmployeeManagement extends SuperModel{
         
         return arrayList;
     }
-    
+    */
 
     public boolean delete(Employee get) {
         //a faire
