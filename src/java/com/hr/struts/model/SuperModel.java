@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,11 +21,19 @@ public class SuperModel {
     String driver, url, login, pwd;
 
     // recuperation de la connexion
-    protected Connection getConnection() throws ClassNotFoundException, SQLException {
-        //Loading driver
-        Class.forName(driver);
+    protected Connection getConnection(){
+        try {
+            //Loading driver
+            Class.forName(driver);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SuperModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        return DriverManager.getConnection(url, login, pwd);
+        try {
+            return DriverManager.getConnection(url, login, pwd);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setConnectionInfo(Properties properties) {
