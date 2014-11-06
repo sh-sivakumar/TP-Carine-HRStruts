@@ -1,18 +1,13 @@
 package com.hr.struts.model;
 
-import com.hr.struts.controller.SuperAction;
 import com.hr.struts.model.entities.Employee;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 
 public class EmployeeManagement extends SuperModel{
 
