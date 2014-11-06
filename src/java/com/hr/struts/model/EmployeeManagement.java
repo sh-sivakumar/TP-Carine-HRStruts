@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-public class EmployeeManagement {
+public class EmployeeManagement extends SuperModel{
 
     private static EmployeeManagement service;
 
@@ -32,7 +32,8 @@ public class EmployeeManagement {
 
     
     // Search for employees by name.
-    public ArrayList<Employee> searchByName(String name, Connection conn) throws SQLException {
+    public ArrayList<Employee> searchByName(String name) throws SQLException {
+        Connection conn = getConnection();
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<Employee> arrayList = new ArrayList<Employee>();
@@ -57,7 +58,8 @@ public class EmployeeManagement {
     }
 
     // Search for employee by social security number. 
-    public ArrayList<Employee> searchBySsNum(String ssNum, Connection conn) throws SQLException {
+    public ArrayList<Employee> searchBySsNum(String ssNum) throws SQLException {
+        Connection conn = getConnection();
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<Employee> arrayList = new ArrayList<Employee>();
@@ -82,8 +84,8 @@ public class EmployeeManagement {
     }
 
     // Search for employee by phone.
-    public ArrayList<Employee> searchByPhone(String phone, Connection conn) throws SQLException {
-        
+    public ArrayList<Employee> searchByPhone(String phone) throws SQLException {
+        Connection conn = getConnection();
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<Employee> arrayList = new ArrayList<Employee>();
@@ -115,7 +117,8 @@ public class EmployeeManagement {
         return true;
     }
 
-    public ArrayList<Employee> findAll (Connection conn) throws SQLException {
+    public ArrayList<Employee> findAll () throws SQLException {
+        Connection conn = getConnection();
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<Employee> arrayList = new ArrayList<Employee>();

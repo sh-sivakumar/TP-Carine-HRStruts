@@ -16,6 +16,8 @@ public final class EmployeeSearchAction extends SuperAction {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
+        readProperties(request.getServletContext());
+        
         //this.service.setEmployees(getEmployees(connexion(request, response)));
         
         ArrayList results = null;
@@ -26,11 +28,11 @@ public final class EmployeeSearchAction extends SuperAction {
         String ssNum = searchForm.getSsNum();
         String phone = searchForm.getPhone();
         if (name != null && name.trim().length() > 0) {
-            results = service.searchByName(name, connexion(request, response));
+            results = service.searchByName(name);
         } else if(ssNum != null && ssNum.trim().length() > 0) {
-            results = service.searchBySsNum(ssNum.trim(), connexion(request, response));
+            results = service.searchBySsNum(ssNum.trim());
         } else {
-            results = service.searchByPhone(phone.trim(), connexion(request, response));
+            results = service.searchByPhone(phone.trim());
         }
         
         // Place search results in EmployeeSearchForm bean for access in the JSP. 

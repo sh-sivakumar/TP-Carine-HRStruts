@@ -65,13 +65,15 @@ public final class EmployeesShowAction extends SuperAction {
             HttpServletResponse response)
             throws Exception {
 
+        readProperties(request.getServletContext());
+        
         ArrayList results;
         //this.service.setEmployees(getEmployees(connexion(request, response)));
 
         EmployeesShowForm showForm = (EmployeesShowForm) form;
 
         // Perform the show all the employees function.
-        results = service.findAll(connexion(request, response));
+        results = service.findAll();
 
         // Cible par defaut
         String cible = new String("succes");

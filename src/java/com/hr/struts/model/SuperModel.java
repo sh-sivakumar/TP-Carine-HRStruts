@@ -21,19 +21,15 @@ public class SuperModel {
     String driver, url, login, pwd;
 
     // recuperation de la connexion
-    protected Connection getConnection(){
+    protected Connection getConnection() throws SQLException {
         try {
             //Loading driver
+            System.out.println("driver" + driver);
             Class.forName(driver);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SuperModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        try {
-            return DriverManager.getConnection(url, login, pwd);
-        } catch (SQLException ex) {
-            Logger.getLogger(SuperModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return DriverManager.getConnection(url, login, pwd);
     }
 
     public void setConnectionInfo(Properties properties) {
