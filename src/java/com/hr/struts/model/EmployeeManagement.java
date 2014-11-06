@@ -30,16 +30,9 @@ public class EmployeeManagement {
 
     }
 
-    /*
+    
     // Search for employees by name.
     public ArrayList<Employee> searchByName(String name, Connection conn) throws SQLException {
-        ArrayList resultList = new ArrayList();
-        for (Employee employee : employees) {
-            if (employee.getName().toUpperCase().contains(name.toUpperCase())) {
-                resultList.add(employee);
-            }
-        }
-        
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<Employee> arrayList = new ArrayList<Employee>();
@@ -47,7 +40,8 @@ public class EmployeeManagement {
         
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select name, ssNum, phone from employes");
+            rs = stmt.executeQuery("select name, ssNum, phone from employes "
+                    + "where name like '%"+name+"%'");
 
             while (rs.next()) {
                 employe = new Employee(rs.getString("name"),
@@ -59,19 +53,11 @@ public class EmployeeManagement {
             Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        conn.close();
         return arrayList;
     }
 
     // Search for employee by social security number. 
     public ArrayList<Employee> searchBySsNum(String ssNum, Connection conn) throws SQLException {
-        ArrayList resultList = new ArrayList();
-        for (Employee employee : employees) {
-            if (employee.getSsNum().equals(ssNum)) {
-                resultList.add(employee);
-            }
-        }
-        
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<Employee> arrayList = new ArrayList<Employee>();
@@ -79,7 +65,8 @@ public class EmployeeManagement {
         
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select name, ssNum, phone from employes");
+            rs = stmt.executeQuery("select name, ssNum, phone from employes "
+                    + "where ssNum = '" + ssNum + "'");
 
             while (rs.next()) {
                 employe = new Employee(rs.getString("name"),
@@ -91,10 +78,9 @@ public class EmployeeManagement {
             Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        conn.close();
         return arrayList;
     }
-*/
+
     // Search for employee by phone.
     public ArrayList<Employee> searchByPhone(String phone, Connection conn) throws SQLException {
         
@@ -104,9 +90,11 @@ public class EmployeeManagement {
         Employee employe = null;
         
         try {
+            System.err.println(phone);
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select name, ssNum, phone from employes "
-                    + "where phone like '%" + phone + "%'");
+                    + "where phone = '" + phone + "'");
+
 
             while (rs.next()) {
                 employe = new Employee(rs.getString("name"),
@@ -118,7 +106,6 @@ public class EmployeeManagement {
             Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        conn.close();
         return arrayList;
     }
     
@@ -148,7 +135,6 @@ public class EmployeeManagement {
             Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        conn.close();
         return arrayList;
     }
 
