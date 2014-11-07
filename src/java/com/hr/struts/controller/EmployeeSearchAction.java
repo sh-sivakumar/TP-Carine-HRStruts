@@ -16,7 +16,7 @@ public final class EmployeeSearchAction extends SuperAction {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        readProperties(request.getServletContext());
+        EmployeeManagement service = (EmployeeManagement) request.getServletContext().getAttribute(SERVICE);
         
         //this.service.setEmployees(getEmployees(connexion(request, response)));
         

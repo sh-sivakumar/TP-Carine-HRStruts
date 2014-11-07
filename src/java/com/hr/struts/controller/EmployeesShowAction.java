@@ -5,6 +5,7 @@
  */
 package com.hr.struts.controller;
 
+import com.hr.struts.model.EmployeeManagement;
 import com.hr.struts.view.EmployeesShowForm;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +66,7 @@ public final class EmployeesShowAction extends SuperAction {
             HttpServletResponse response)
             throws Exception {
 
-        readProperties(request.getServletContext());
+       EmployeeManagement service = (EmployeeManagement)request.getServletContext().getAttribute(SERVICE);
         
         ArrayList results;
         //this.service.setEmployees(getEmployees(connexion(request, response)));

@@ -1,9 +1,13 @@
 package com.hr.struts.plugin;
 
+import com.hr.struts.model.EmployeeManagement;
+import com.hr.struts.model.IEmployeeManagement;
 import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletContext;
@@ -14,8 +18,15 @@ import org.apache.struts.action.ActionServlet;
 
 public class PluginLecture implements PlugIn {
 
+    /**
+     * creer modele injecter les parametres de connection on place l'instance du
+     * modele dans le servlet context
+    *
+     */
     public static final String PROPERTIES = "PROPERTIES";
+    public static final String SERVICE = "SERVICE";
     private String filePath = null; //retrieves from struts config
+    private String EMClass = null;
 
     public String getFilePath() {
         return filePath;
@@ -23,6 +34,14 @@ public class PluginLecture implements PlugIn {
 
     public void setFilePath(String f) {
         filePath = f;
+    }
+
+    public String getEMClass() {
+        return EMClass;
+    }
+
+    public void setEMClass(String EMClass) {
+        this.EMClass = EMClass;
     }
 
     @Override
@@ -39,7 +58,13 @@ public class PluginLecture implements PlugIn {
 
             //Put properties from file into the session (cache memory)
             ServletContext context = servlet.getServletContext();
-            context.setAttribute(PROPERTIES, properties);
+            //context.setAttribute(PROPERTIES, properties);
+
+            Class classe = Class.forName(EMClass);
+            IEmployeeManagement service = (IEmployeeManagement) classe.newInstance();
+
+            service.setConnectionInfo(properties);
+            context.setAttribute(SERVICE, service);
 
             //Show items' value (test)
             System.out.println(properties.getProperty("driver", "Sans Driver"));
@@ -51,6 +76,8 @@ public class PluginLecture implements PlugIn {
             throw new ServletException(fnfe.getMessage());
         } catch (IOException ioe) {
             throw new ServletException(ioe.getMessage());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(PluginLecture.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
