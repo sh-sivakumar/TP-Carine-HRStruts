@@ -26,5 +26,5 @@ public interface IEmployeeManagement<Entity> {
 
     public ArrayList<Entity> findAll() throws ServiceIndisponibleException;
 
-    public void setConnectionInfo(Properties properties);
+    //public void setConnectionInfo(Properties properties);
 }

@@ -59,7 +59,7 @@ public class PluginLecture implements PlugIn {
 
             IEmployeeManagement service = (IEmployeeManagement) new Factory().instantiate(EMClass);
 
-            service.setConnectionInfo(properties);
+            //service.setConnectionInfo(properties);
             context.setAttribute(SERVICE, service);
 
             //Show items' value (test)
