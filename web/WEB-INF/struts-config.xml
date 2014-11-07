@@ -37,21 +37,25 @@
         <action path="/index" forward="/menu.jsp"/>
         
         <action path="/searchEmployee" 
-                type="com.hr.struts.controller.EmployeeSearchAction" 
+                type="com.hr.struts.controller.EmployeeAction" 
                 name="employeeSearchForm"
                 scope="request"
+                parameter="searchEmployee"
                 validate="true"
                 input="/searchEmployee.jsp">
         </action>
         <action path="/showEmployees"
-            type="com.hr.struts.controller.EmployeesShowAction"
+            type="com.hr.struts.controller.EmployeeAction"
             name="employeesShowForm"
             scope="request"
             validate="true"
+            parameter="showEmployees"
             input="/showEmployees.jsp">
             <forward name="succes" path="/showEmployees.jsp"/>
             <forward name="echec" path="/menu.jsp"/>
         </action>
+        
+        
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
@@ -99,7 +103,8 @@
     </plug-in>
     
     <plug-in className="com.hr.struts.plugin.PluginLecture" >
-        <set-property property="filePath" value="/Users/Sinthu/NetBeansProjects/HRStruts-TpCarine/src/java/com/myapp/struts/config.properties" />
+        <set-property property="filePath" value="/Users/franckmazzolo/NetBeansProjects/TP-Carine-HRStruts/src/java/com/myapp/struts/config.properties" />
+        <set-property property="EMClass" value="com.hr.struts.model.EmployeeManagement"/>
     </plug-in>
     
 </struts-config>
