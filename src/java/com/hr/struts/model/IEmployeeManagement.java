@@ -5,6 +5,7 @@
  */
 package com.hr.struts.model;
 
+import com.hr.struts.exception.ServiceIndisponibleException;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -15,17 +16,15 @@ import java.util.Properties;
  */
 public interface IEmployeeManagement<Entity> {
 
-    public boolean add(String name, String ssNum, String phone);
+    public boolean add(String name, String ssNum, String phone) throws ServiceIndisponibleException;
 
-    public boolean delete(Entity get);
+    public boolean delete(Entity get) throws ServiceIndisponibleException;
 
-    public boolean update(Entity e, String name, String ssNum, String phone);
+    public boolean update(Entity e, String name, String ssNum, String phone) throws ServiceIndisponibleException;
 
-    public ArrayList<Entity> searchBy(String requete) throws Exception;
+    public ArrayList<Entity> searchByTransfer(int type, String value) throws ServiceIndisponibleException;
 
-    public ArrayList<Entity> searchByTransfer(int type, String value) throws Exception;
-
-    public ArrayList<Entity> findAll() throws Exception;
+    public ArrayList<Entity> findAll() throws ServiceIndisponibleException;
 
     public void setConnectionInfo(Properties properties);
 }

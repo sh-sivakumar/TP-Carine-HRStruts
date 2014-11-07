@@ -1,6 +1,6 @@
 package com.hr.struts.controller;
 
-import com.hr.struts.model.EmployeeManagement;
+import com.hr.struts.model.IEmployeeManagement;
 import com.hr.struts.view.EmployeeSearchForm;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ public final class EmployeeSearchAction extends SuperAction {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        EmployeeManagement service = (EmployeeManagement) request.getServletContext().getAttribute(SERVICE);
+        IEmployeeManagement service = (IEmployeeManagement) request.getServletContext().getAttribute(SERVICE);
         
         //this.service.setEmployees(getEmployees(connexion(request, response)));
         

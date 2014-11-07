@@ -5,7 +5,7 @@
  */
 package com.hr.struts.controller;
 
-import com.hr.struts.model.EmployeeManagement;
+import com.hr.struts.model.IEmployeeManagement;
 import com.hr.struts.view.EmployeesShowForm;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +23,41 @@ import org.apache.struts.action.ActionMessages;
 public final class EmployeesShowAction extends SuperAction {
 
     /*
+     @Override
+     public ActionForward execute(ActionMapping mapping,
+     ActionForm form,
+     HttpServletRequest request,
+     HttpServletResponse response)
+     throws Exception {
+
+     ArrayList results;
+     this.service.setEmployees(getEmployees(connexion(request, response)));
+
+     EmployeesShowForm showForm = (EmployeesShowForm) form;
+
+     // Perform the show all the employees function.
+     results = service.findAll();
+
+     // Cible par defaut
+     String cible = new String("succes");
+
+     // Cible en cas d'echec
+     if (results == null) {
+     cible = new String("echec");
+     ActionMessages errors = new ActionMessages();
+     errors.add(null, new ActionMessage("error.show.employees.notfound"));
+     // Signalement des erreurs a la page d'origine
+     if (!errors.isEmpty()) {
+     saveErrors(request, errors);
+     }
+     } else {
+     // Place search results in EmployeesShowForm for access by JSP.
+     showForm.setResults(results);
+     }
+     // Transmission a la vue appropriee
+     return (mapping.findForward(cible));
+     }
+     */
     @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm form,
@@ -30,44 +65,8 @@ public final class EmployeesShowAction extends SuperAction {
             HttpServletResponse response)
             throws Exception {
 
-        ArrayList results;
-        this.service.setEmployees(getEmployees(connexion(request, response)));
+        IEmployeeManagement service = (IEmployeeManagement) request.getServletContext().getAttribute(SERVICE);
 
-        EmployeesShowForm showForm = (EmployeesShowForm) form;
-
-        // Perform the show all the employees function.
-        results = service.findAll();
-
-        // Cible par defaut
-        String cible = new String("succes");
-
-        // Cible en cas d'echec
-        if (results == null) {
-            cible = new String("echec");
-            ActionMessages errors = new ActionMessages();
-            errors.add(null, new ActionMessage("error.show.employees.notfound"));
-            // Signalement des erreurs a la page d'origine
-            if (!errors.isEmpty()) {
-                saveErrors(request, errors);
-            }
-        } else {
-            // Place search results in EmployeesShowForm for access by JSP.
-            showForm.setResults(results);
-        }
-        // Transmission a la vue appropriee
-        return (mapping.findForward(cible));
-    }
-    */
-    
-    @Override
-    public ActionForward execute(ActionMapping mapping,
-            ActionForm form,
-            HttpServletRequest request,
-            HttpServletResponse response)
-            throws Exception {
-
-       EmployeeManagement service = (EmployeeManagement)request.getServletContext().getAttribute(SERVICE);
-        
         ArrayList results;
         //this.service.setEmployees(getEmployees(connexion(request, response)));
 
@@ -78,7 +77,7 @@ public final class EmployeesShowAction extends SuperAction {
 
         // Cible par defaut
         String cible = new String("succes");
-        
+
         // Cible en cas d'echec
         if (results == null) {
             cible = new String("echec");

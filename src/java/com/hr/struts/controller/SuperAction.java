@@ -5,13 +5,13 @@
  */
 package com.hr.struts.controller;
 
-import org.apache.struts.action.Action;
+import org.apache.struts.actions.MappingDispatchAction;
 
 /**
  *
  * @author Sinthu
  */
-public class SuperAction extends Action {
+public class SuperAction extends MappingDispatchAction {
 
     protected static final String SERVICE = "SERVICE";
 }

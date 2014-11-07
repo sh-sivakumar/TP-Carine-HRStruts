@@ -1,6 +1,5 @@
 package com.hr.struts.plugin;
 
-import com.hr.struts.model.EmployeeManagement;
 import com.hr.struts.model.IEmployeeManagement;
 import java.util.Properties;
 import java.io.FileInputStream;
@@ -21,9 +20,8 @@ public class PluginLecture implements PlugIn {
     /**
      * creer modele injecter les parametres de connection on place l'instance du
      * modele dans le servlet context
-    *
+     *
      */
-    public static final String PROPERTIES = "PROPERTIES";
     public static final String SERVICE = "SERVICE";
     private String filePath = null; //retrieves from struts config
     private String EMClass = null;
