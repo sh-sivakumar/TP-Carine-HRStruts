@@ -5,13 +5,21 @@
  */
 package com.hr.struts.controller;
 
+import com.hr.struts.model.IEmployeeManagement;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.actions.MappingDispatchAction;
 
 /**
  *
  * @author Sinthu
  */
-public class SuperAction extends MappingDispatchAction {
+public abstract class SuperAction extends MappingDispatchAction {
 
     protected static final String SERVICE = "SERVICE";
+
+    protected IEmployeeManagement getModel(HttpServletRequest request) {
+
+        IEmployeeManagement iem = (IEmployeeManagement) request.getServletContext().getAttribute(SERVICE);
+        return iem;
+    }
 }

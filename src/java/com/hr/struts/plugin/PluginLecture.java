@@ -56,10 +56,8 @@ public class PluginLecture implements PlugIn {
 
             //Put properties from file into the session (cache memory)
             ServletContext context = servlet.getServletContext();
-            //context.setAttribute(PROPERTIES, properties);
 
-            Class classe = Class.forName(EMClass);
-            IEmployeeManagement service = (IEmployeeManagement) classe.newInstance();
+            IEmployeeManagement service = (IEmployeeManagement) new Factory().instantiate(EMClass);
 
             service.setConnectionInfo(properties);
             context.setAttribute(SERVICE, service);
@@ -74,8 +72,6 @@ public class PluginLecture implements PlugIn {
             throw new ServletException(fnfe.getMessage());
         } catch (IOException ioe) {
             throw new ServletException(ioe.getMessage());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(PluginLecture.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

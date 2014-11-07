@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author franckmazzolo
  */
-public class SuperModel {
+public abstract class SuperModel {
 
     protected String driver, url, login, pwd;
 

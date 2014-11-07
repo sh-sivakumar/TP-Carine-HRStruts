@@ -5,7 +5,6 @@
  */
 package com.hr.struts.controller;
 
-import static com.hr.struts.controller.SuperAction.SERVICE;
 import com.hr.struts.model.IEmployeeManagement;
 import com.hr.struts.view.EmployeeSearchForm;
 import com.hr.struts.view.EmployeesShowForm;
@@ -25,23 +24,23 @@ import org.apache.struts.action.DynaActionForm;
  * @author Sinthu
  */
 public class EmployeeAction extends SuperAction {
-    
+
     public ActionForward addEmployee(ActionMapping mapping,
             ActionForm form,
             HttpServletRequest request,
             HttpServletResponse response)
             throws Exception {
-        
-        IEmployeeManagement service = (IEmployeeManagement) request.getServletContext().getAttribute(SERVICE);
-        
+
+        IEmployeeManagement service = getModel(request);
+
         boolean results;
         DynaBean addEmp = (DynaActionForm) form;
-        
+
         String name, ssNum, phone;
         name = (String) request.getParameter("name");
         ssNum = (String) request.getParameter("ssNum");
         phone = (String) request.getParameter("phone");
-        
+
         results = service.add(name, ssNum, phone);
 
         // Cible par defaut
@@ -62,15 +61,15 @@ public class EmployeeAction extends SuperAction {
         // Transmission a la vue appropriee
         return (mapping.findForward(cible));
     }
-    
+
     public ActionForward showEmployees(ActionMapping mapping,
             ActionForm form,
             HttpServletRequest request,
             HttpServletResponse response)
             throws Exception {
-        
-        IEmployeeManagement service = (IEmployeeManagement) request.getServletContext().getAttribute(SERVICE);
-        
+
+        IEmployeeManagement service = getModel(request);
+
         ArrayList results;
         //this.service.setEmployees(getEmployees(connexion(request, response)));
 
@@ -98,7 +97,7 @@ public class EmployeeAction extends SuperAction {
         // Transmission a la vue appropriee
         return (mapping.findForward(cible));
     }
-    
+
     public ActionForward deleteEmployee(ActionMapping mapping,
             ActionForm form,
             HttpServletRequest request,
@@ -137,27 +136,27 @@ public class EmployeeAction extends SuperAction {
          // Transmission a la vue appropriee
          return (mapping.findForward(cible));
          */
-        
+
         return null;
     }
-    
+
     public ActionForward updateEmployee(ActionMapping mapping,
             ActionForm form,
             HttpServletRequest request,
             HttpServletResponse response)
             throws Exception {
-        
-        IEmployeeManagement service = (IEmployeeManagement) request.getServletContext().getAttribute(SERVICE);
-        
+
+        IEmployeeManagement service = getModel(request);
+
         boolean results = true;
         DynaBean updateEmp = (DynaBean) form;
-        
+
         String ssNum, name, phone;
         ssNum = (String) request.getParameter("ssNum");
         name = (String) request.getParameter("name");
         phone = (String) request.getParameter("phone");
         ArrayList<com.hr.struts.model.entities.Employee> listEmp = service.searchByTransfer(1, name);
-        
+
         for (com.hr.struts.model.entities.Employee listEmp1 : listEmp) {
             boolean res;
             res = service.update(listEmp1, name, ssNum, phone);
@@ -184,12 +183,12 @@ public class EmployeeAction extends SuperAction {
         // Transmission a la vue appropriee
         return (mapping.findForward(cible));
     }
-    
+
     public ActionForward searchEmployee(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
-        IEmployeeManagement service = (IEmployeeManagement) request.getServletContext().getAttribute(SERVICE);
+
+        IEmployeeManagement service = getModel(request);
 
         //this.service.setEmployees(getEmployees(connexion(request, response)));
         ArrayList results = null;
