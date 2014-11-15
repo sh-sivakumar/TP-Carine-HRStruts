@@ -6,11 +6,7 @@
 package com.hr.struts.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -21,7 +17,7 @@ import javax.sql.DataSource;
  */
 public abstract class SuperModel {
 
-    protected String datasource;
+    //protected String datasource;
     //protected String driver, url, login, pwd;
 
     /*
@@ -37,7 +33,6 @@ public abstract class SuperModel {
      return DriverManager.getConnection(url, login, pwd);
      }
      */
-    
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -57,11 +52,11 @@ public abstract class SuperModel {
      * @param properties
      */
     /*
-    public void setConnectionInfo(Properties properties) {
-        this.driver = properties.getProperty("driver", "Sans Driver");
-        this.url = properties.getProperty("url", "Sans URL");
-        this.login = properties.getProperty("login", "Sans Login");
-        this.pwd = properties.getProperty("pwd", "Sans Password");
-    }
-    */
+     public void setConnectionInfo(Properties properties) {
+     this.driver = properties.getProperty("driver", "Sans Driver");
+     this.url = properties.getProperty("url", "Sans URL");
+     this.login = properties.getProperty("login", "Sans Login");
+     this.pwd = properties.getProperty("pwd", "Sans Password");
+     }
+     */
 }

@@ -7,7 +7,6 @@ package com.hr.struts.model;
 
 import com.hr.struts.exception.ServiceIndisponibleException;
 import java.util.ArrayList;
-import java.util.Properties;
 
 /**
  *
