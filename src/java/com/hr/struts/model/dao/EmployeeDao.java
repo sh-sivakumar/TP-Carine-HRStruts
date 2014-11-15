@@ -194,7 +194,8 @@ public class EmployeeDao implements IEmployeeDao {
                 int nb;
 
                 stmt = conn.createStatement();
-                rs = stmt.executeQuery("SELECT count(ssnum) as nb FROM employes WHERE ssnum = '" + ssNum + "'");
+                rs = stmt.executeQuery("SELECT count(ssnum) as nb FROM employes "
+                        + "WHERE ssnum = '" + ssNum + "'");
                 
                 rs.next();
                 nb = rs.getInt("nb");

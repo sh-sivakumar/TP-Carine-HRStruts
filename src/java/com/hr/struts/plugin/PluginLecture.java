@@ -63,10 +63,12 @@ public class PluginLecture implements PlugIn {
             context.setAttribute(SERVICE, service);
 
             //Show items' value (test)
+            /*
             System.out.println(properties.getProperty("driver", "Sans Driver"));
             System.out.println(properties.getProperty("url", "Sans URL"));
             System.out.println(properties.getProperty("login", "Sans Login"));
             System.out.println(properties.getProperty("pwd", "Sans Password"));
+            */
 
         } catch (FileNotFoundException fnfe) {
             throw new ServletException(fnfe.getMessage());
