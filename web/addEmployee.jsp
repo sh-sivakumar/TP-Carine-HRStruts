@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <td align="right"><bean:message key="label.search.phone"/>:</td>
-                    <td><html:text property="phone"/>(xx-xx-xx-xx-xx)</td>
+                    <td><html:text property="phone"/>(xxxxxxxxxx)</td>
                 </tr>
                 <tr>
                     <td></td>

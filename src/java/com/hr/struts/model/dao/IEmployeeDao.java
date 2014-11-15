@@ -28,4 +28,7 @@ public interface IEmployeeDao {
     public boolean update(String name, String ssNum, String phone) throws DAOException;
 
     public boolean delete(String ssNum) throws DAOException;
+
+    public boolean ssNumExist(String ssNum) throws DAOException;
+    
 }

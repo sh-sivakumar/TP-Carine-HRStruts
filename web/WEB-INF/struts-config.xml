@@ -62,7 +62,7 @@
             parameter="addEmployee"
             input="/addEmployee.jsp">
             <forward name="succes" path="/showEmployees.jsp"/>
-            <forward name="echec" path="/menu.jsp"/>
+            <forward name="echec" path="/addEmployee.jsp"/>
         </action>
         <action path="/deleteEmployee"
             type="com.hr.struts.controller.EmployeeAction"
@@ -72,7 +72,7 @@
             parameter="deleteEmployee"
             input="/deleteEmployee.jsp">
             <forward name="succes" path="/showEmployees.jsp"/>
-            <forward name="echec" path="/menu.jsp"/>
+            <forward name="echec" path="/deleteEmployee.jsp"/>
         </action>
         <action path="/updateEmployee"
             type="com.hr.struts.controller.EmployeeAction"
@@ -82,7 +82,7 @@
             parameter="updateEmployee"
             input="/updateEmployee.jsp">
             <forward name="succes" path="/showEmployees.jsp"/>
-            <forward name="echec" path="/menu.jsp"/>
+            <forward name="echec" path="/updateEmployee.jsp"/>
         </action>
         
         

@@ -57,6 +57,7 @@ public class EmployeeAction extends SuperAction {
         } else {
             addEmp.set("results", results);
         }
+        
         // Transmission a la vue appropriee
         return (mapping.findForward(cible));
     }

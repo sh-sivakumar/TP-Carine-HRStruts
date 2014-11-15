@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 public class EmployeeManagement extends SuperModel implements IEmployeeManagement<Employee> {
 
@@ -47,11 +50,14 @@ public class EmployeeManagement extends SuperModel implements IEmployeeManagemen
     @Override
     public boolean delete(String ssNum) throws ServiceIndisponibleException {
         try {
-            eDao.delete(ssNum);
+            if(eDao.ssNumExist(ssNum)) {
+                return eDao.delete(ssNum);
+            } 
         } catch (Exception e) {
             throw new ServiceIndisponibleException("Delete indisponible", e);
         }
-        return true;
+        
+        return false;
     }
 
     @Override
@@ -70,24 +76,30 @@ public class EmployeeManagement extends SuperModel implements IEmployeeManagemen
     public boolean add(String name, String ssNum, String phone) throws ServiceIndisponibleException {
         
         try {
-            return eDao.create(name, ssNum, phone);
+            if(!eDao.ssNumExist(ssNum)) {
+                return eDao.create(name, ssNum, phone);
+            } 
         } catch (Exception ex) {
 
             throw new ServiceIndisponibleException("Service indisponible", ex);
         }
-  
+        
+        return false;
     }
 
     @Override
     public boolean update(String name, String ssNum, String phone) throws ServiceIndisponibleException {
         
         try {
-            return eDao.update(name, ssNum, phone);
+            if(eDao.ssNumExist(ssNum)) {
+                return eDao.update(name, ssNum, phone);
+            } 
         } catch (Exception ex) {
 
             throw new ServiceIndisponibleException("Service indisponible", ex);
         }
         
+        return false;
     }
 
 }

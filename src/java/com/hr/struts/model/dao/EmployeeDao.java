@@ -183,4 +183,35 @@ public class EmployeeDao implements IEmployeeDao {
 
     }
 
+    @Override
+    public boolean ssNumExist(String ssNum) throws DAOException {
+        try {
+            Connection conn = null;
+            try {
+                conn = getConnection();
+                Statement stmt = null;
+                ResultSet rs = null;
+                int nb;
+
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT count(ssnum) as nb FROM employes WHERE ssnum = '" + ssNum + "'");
+                
+                rs.next();
+                nb = rs.getInt("nb");
+                
+                if(nb>=1) {
+                    return true;
+                } else {
+                    return false;
+                }
+                
+            } finally {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            throw new DAOException(ex);
+        }
+
+    }
+
 }
