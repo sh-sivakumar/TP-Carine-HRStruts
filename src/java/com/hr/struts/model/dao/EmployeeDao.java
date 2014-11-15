@@ -62,38 +62,75 @@ public class EmployeeDao implements IEmployeeDao {
                 conn.close();
             }
         } catch (SQLException ex) {
-            throw new DAOException("test", ex);
+            throw new DAOException("Recherche non effectué !", ex);
         }
 
         return arrayList;
     }
 
     @Override
-    public void create(Employee e) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void update() throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Employee e) throws DAOException {
+    public boolean create(String name, String ssNum, String phone) throws DAOException {
         try {
-
             Connection conn = null;
+            Statement stmt = null;
+
             try {
                 conn = getConnection();
-                Statement stmt = conn.createStatement();
-                String ssNum = e.getSsNum();
-                stmt.executeQuery("DELETE FROM employes WHERE ssnum=" + ssNum);
+                stmt = conn.createStatement();
+                stmt.executeUpdate("INSERT INTO employes(name,ssnum,phone) "
+                        + "VALUES ('" + name + "','" + ssNum + "','" + phone + "')");
             } finally {
                 conn.close();
             }
-        } catch (SQLException sqle) {
-            throw new DAOException(sqle);
+        } catch (SQLException ex) {
+            throw new DAOException("Add non effectué !", ex);
         }
+
+        return true;
+    }
+
+    @Override
+    public boolean update(String name, String ssNum, String phone) throws DAOException {
+        try {
+            Connection conn = null;
+            Statement stmt = null;
+
+            try {
+                conn = getConnection();
+                stmt = conn.createStatement();
+
+                stmt.executeUpdate("UPDATE employes SET name='" + name
+                        + "', phone='" + phone + "' WHERE ssnum='" + ssNum + "'");
+
+            } finally {
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            throw new DAOException("Update non effectué !", ex);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean delete(String ssNum) throws DAOException {
+        try {
+
+            Connection conn = null;
+            Statement stmt = null;
+
+            try {
+                conn = getConnection();
+                stmt = conn.createStatement();
+
+                stmt.executeUpdate("DELETE FROM employes WHERE ssnum='" + ssNum + "'");
+            } finally {
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            throw new DAOException("Delete non effectué !", ex);
+        }
+
+        return true;
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface IEmployeeDao {
 
-    public void create(Employee e) throws DAOException;
+    public boolean create(String name, String ssNum, String phone) throws DAOException;
 
     public List<Employee> findByName(String name) throws DAOException;
 
@@ -25,7 +25,7 @@ public interface IEmployeeDao {
 
     public List<Employee> findAll() throws DAOException;
 
-    public void update() throws DAOException;
+    public boolean update(String name, String ssNum, String phone) throws DAOException;
 
-    public void delete(Employee e) throws DAOException;
+    public boolean delete(String ssNum) throws DAOException;
 }

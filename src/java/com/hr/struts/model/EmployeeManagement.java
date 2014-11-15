@@ -44,122 +44,10 @@ public class EmployeeManagement extends SuperModel implements IEmployeeManagemen
         return (ArrayList) result;
     }
 
-    /*
-     // Search for employees by something.
-     public ArrayList<Employee> searchBy(String requete) throws ServiceIndisponibleException {
-     Connection conn = null;
-     Statement stmt = null;
-     ResultSet rs = null;
-     ArrayList<Employee> arrayList = new ArrayList<Employee>();
-     Employee employe = null;
-
-     try {
-     try {
-     conn = getConnection();
-     stmt = conn.createStatement();
-     rs = stmt.executeQuery(requete);
-
-     while (rs.next()) {
-     employe = new Employee(rs.getString("name"),
-     rs.getString("ssNum"), rs.getString("phone"));
-     arrayList.add(employe);
-     }
-     } finally {
-     conn.close();
-     }
-
-     } catch (SQLException ex) {
-     throw new ServiceIndisponibleException(ex);
-     }
-
-     return arrayList;
-     }*/
-
-    /*
-     // Search for employees by name.
-     public ArrayList<Employee> searchByName(String name) throws SQLException {
-     Connection conn = getConnection();
-     Statement stmt = null;
-     ResultSet rs = null;
-     ArrayList<Employee> arrayList = new ArrayList<Employee>();
-     Employee employe = null;
-        
-     try {
-     stmt = conn.createStatement();
-     rs = stmt.executeQuery("select name, ssNum, phone from employes "
-     + "where name like '%"+name+"%'");
-
-     while (rs.next()) {
-     employe = new Employee(rs.getString("name"),
-     rs.getString("ssNum"), rs.getString("phone"));
-     arrayList.add(employe);
-     }
-
-     } catch (SQLException ex) {
-     Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
-     }
-        
-     return arrayList;
-     }
-
-     // Search for employee by social security number. 
-     public ArrayList<Employee> searchBySsNum(String ssNum) throws SQLException {
-     Connection conn = getConnection();
-     Statement stmt = null;
-     ResultSet rs = null;
-     ArrayList<Employee> arrayList = new ArrayList<Employee>();
-     Employee employe = null;
-        
-     try {
-     stmt = conn.createStatement();
-     rs = stmt.executeQuery("select name, ssNum, phone from employes "
-     + "where ssNum = '" + ssNum + "'");
-
-     while (rs.next()) {
-     employe = new Employee(rs.getString("name"),
-     rs.getString("ssNum"), rs.getString("phone"));
-     arrayList.add(employe);
-     }
-
-     } catch (SQLException ex) {
-     Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
-     }
-        
-     return arrayList;
-     }
-
-     // Search for employee by phone.
-     public ArrayList<Employee> searchByPhone(String phone) throws SQLException {
-     Connection conn = getConnection();
-     Statement stmt = null;
-     ResultSet rs = null;
-     ArrayList<Employee> arrayList = new ArrayList<Employee>();
-     Employee employe = null;
-        
-     try {
-     System.err.println(phone);
-     stmt = conn.createStatement();
-     rs = stmt.executeQuery("select name, ssNum, phone from employes "
-     + "where phone = '" + phone + "'");
-
-
-     while (rs.next()) {
-     employe = new Employee(rs.getString("name"),
-     rs.getString("ssNum"), rs.getString("phone"));
-     arrayList.add(employe);
-     }
-
-     } catch (SQLException ex) {
-     Logger.getLogger(EmployeeManagement.class.getName()).log(Level.SEVERE, null, ex);
-     }
-        
-     return arrayList;
-     }
-     */
     @Override
-    public boolean delete(Employee get) throws ServiceIndisponibleException {
+    public boolean delete(String ssNum) throws ServiceIndisponibleException {
         try {
-            eDao.delete(get);
+            eDao.delete(ssNum);
         } catch (Exception e) {
             throw new ServiceIndisponibleException("Delete indisponible", e);
         }
@@ -180,44 +68,26 @@ public class EmployeeManagement extends SuperModel implements IEmployeeManagemen
 
     @Override
     public boolean add(String name, String ssNum, String phone) throws ServiceIndisponibleException {
-
+        
         try {
-            Connection conn = null;
-            Statement stmt = null;
-            ResultSet rs = null;
-            try {
-                conn = getConnection();
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery("insert into employes VALUES (name, ssNum, phone)");
-            } finally {
-                conn.close();
-            }
-        } catch (SQLException ex) {
-            throw new ServiceIndisponibleException(ex);
-        }
+            return eDao.create(name, ssNum, phone);
+        } catch (Exception ex) {
 
-        return true;
+            throw new ServiceIndisponibleException("Service indisponible", ex);
+        }
+  
     }
 
     @Override
-    public boolean update(Employee e, String name, String ssNum, String phone) throws ServiceIndisponibleException {
+    public boolean update(String name, String ssNum, String phone) throws ServiceIndisponibleException {
+        
         try {
-            Connection conn = null;
-            Statement stmt = null;
-            ResultSet rs = null;
-            try {
-                conn = getConnection();
-                stmt = conn.createStatement();
+            return eDao.update(name, ssNum, phone);
+        } catch (Exception ex) {
 
-                rs = stmt.executeQuery("UPDATE employes SET name=" + name + ", ssnum=" + ssNum + ", phone=" + phone + " WHERE name=" + e.getName());
-            } finally {
-                conn.close();
-            }
-        } catch (SQLException ex) {
-            throw new ServiceIndisponibleException(ex);
+            throw new ServiceIndisponibleException("Service indisponible", ex);
         }
-
-        return true;
+        
     }
 
 }

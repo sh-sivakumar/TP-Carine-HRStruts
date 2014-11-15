@@ -17,9 +17,9 @@ public interface IEmployeeManagement<Entity> {
 
     public boolean add(String name, String ssNum, String phone) throws ServiceIndisponibleException;
 
-    public boolean delete(Entity get) throws ServiceIndisponibleException;
+    public boolean delete(String ssNum) throws ServiceIndisponibleException;
 
-    public boolean update(Entity e, String name, String ssNum, String phone) throws ServiceIndisponibleException;
+    public boolean update(String name, String ssNum, String phone) throws ServiceIndisponibleException;
 
     public ArrayList<Entity> searchByTransfer(int type, String value) throws ServiceIndisponibleException;
 

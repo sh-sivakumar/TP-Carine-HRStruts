@@ -6,8 +6,7 @@
 package com.hr.struts.controller;
 
 import com.hr.struts.model.IEmployeeManagement;
-import com.hr.struts.view.EmployeeSearchForm;
-import com.hr.struts.view.EmployeesShowForm;
+import com.hr.struts.model.entities.Employee;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +33,7 @@ public class EmployeeAction extends SuperAction {
         IEmployeeManagement service = getModel(request);
 
         boolean results;
-        DynaBean addEmp = (DynaActionForm) form;
+        DynaBean addEmp = (DynaBean) form;
 
         String name, ssNum, phone;
         name = (String) request.getParameter("name");
@@ -73,7 +72,7 @@ public class EmployeeAction extends SuperAction {
         ArrayList results;
         //this.service.setEmployees(getEmployees(connexion(request, response)));
 
-        EmployeesShowForm showForm = (EmployeesShowForm) form;
+        DynaBean showForm = (DynaBean) form;
 
         // Perform the show all the employees function.
         results = service.findAll();
@@ -92,7 +91,7 @@ public class EmployeeAction extends SuperAction {
             }
         } else {
             // Place search results in EmployeesShowForm for access by JSP.
-            showForm.setResults(results);
+            showForm.set("results", results);
         }
         // Transmission a la vue appropriee
         return (mapping.findForward(cible));
@@ -102,42 +101,34 @@ public class EmployeeAction extends SuperAction {
             ActionForm form,
             HttpServletRequest request,
             HttpServletResponse response)
-            throws Exception {/*
-         EmployeeManagement service = new EmployeeManagement();
-         boolean results = true;
-         DynaBean deleteEmp = (DynaBean) form;
+            throws Exception {
 
-         String ssNum;
-         ssNum = (String) request.getParameter("ssNum");
-         ArrayList<com.hr.struts.model.entities.Employee> listEmp = service.searchBySsNum(ssNum);
-         for (com.hr.struts.model.entities.Employee listEmp1 : listEmp) {
-         boolean res;
-         res = service.delete(listEmp1);
-         if (!res) {
-         results = false;
-         }
-         }
+        IEmployeeManagement service = getModel(request);
+        boolean results = true;
+        DynaBean deleteEmp = (DynaBean) form;
 
-         // Cible par defaut
-         String cible = new String("succes");
+        String ssNum;
+        ssNum = (String) request.getParameter("ssNum");
+        results = service.delete(ssNum);
 
-         // Cible en cas d'echec
-         if (results == false) {
-         cible = new String("echec");
-         ActionMessages errors = new ActionMessages();
-         errors.add(null, new ActionMessage("error.delete.employees.false"));
-         // Signalement des erreurs a la page d'origine
-         if (!errors.isEmpty()) {
-         saveErrors(request, errors);
-         }
-         } else {
-         deleteEmp.set("results", results);
-         }
-         // Transmission a la vue appropriee
-         return (mapping.findForward(cible));
-         */
+        // Cible par defaut
+        String cible = new String("succes");
 
-        return null;
+        // Cible en cas d'echec
+        if (results == false) {
+            cible = new String("echec");
+            ActionMessages errors = new ActionMessages();
+            errors.add(null, new ActionMessage("error.delete.employees.false"));
+            // Signalement des erreurs a la page d'origine
+            if (!errors.isEmpty()) {
+                saveErrors(request, errors);
+            }
+        } else {
+            deleteEmp.set("results", results);
+        }
+        // Transmission a la vue appropriee
+        return (mapping.findForward(cible));
+
     }
 
     public ActionForward updateEmployee(ActionMapping mapping,
@@ -155,16 +146,9 @@ public class EmployeeAction extends SuperAction {
         ssNum = (String) request.getParameter("ssNum");
         name = (String) request.getParameter("name");
         phone = (String) request.getParameter("phone");
-        ArrayList<com.hr.struts.model.entities.Employee> listEmp = service.searchByTransfer(1, name);
 
-        for (com.hr.struts.model.entities.Employee listEmp1 : listEmp) {
-            boolean res;
-            res = service.update(listEmp1, name, ssNum, phone);
-            if (!res) {
-                results = false;
-            }
-        }
-
+        results = service.update(name, ssNum, phone);
+        
         // Cible par defaut
         String cible = new String("succes");
 
@@ -192,12 +176,12 @@ public class EmployeeAction extends SuperAction {
 
         //this.service.setEmployees(getEmployees(connexion(request, response)));
         ArrayList results = null;
-        EmployeeSearchForm searchForm = (EmployeeSearchForm) form;
+        DynaBean searchForm = (DynaBean) form;
 
         // Perform employee search based on the criteria entered. 
-        String name = searchForm.getName();
-        String ssNum = searchForm.getSsNum();
-        String phone = searchForm.getPhone();
+        String name = (String) searchForm.get("name");
+        String ssNum = (String) searchForm.get("ssNum");
+        String phone = (String) searchForm.get("phone");
 
         /*
          if (name != null && name.trim().length() > 0) {
@@ -217,7 +201,7 @@ public class EmployeeAction extends SuperAction {
         }
 
         // Place search results in EmployeeSearchForm bean for access in the JSP. 
-        searchForm.setResults(results);
+        searchForm.set("results", results);
 
         // Forward control to this Action's input page.
         return mapping.getInputForward();
