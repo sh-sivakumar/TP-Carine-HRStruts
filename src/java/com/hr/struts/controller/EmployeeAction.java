@@ -6,7 +6,6 @@
 package com.hr.struts.controller;
 
 import com.hr.struts.model.IEmployeeManagement;
-import com.hr.struts.model.entities.Employee;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
 
 /**
  *
@@ -57,7 +55,7 @@ public class EmployeeAction extends SuperAction {
         } else {
             addEmp.set("results", results);
         }
-        
+
         // Transmission a la vue appropriee
         return (mapping.findForward(cible));
     }
@@ -149,7 +147,7 @@ public class EmployeeAction extends SuperAction {
         phone = (String) request.getParameter("phone");
 
         results = service.update(name, ssNum, phone);
-        
+
         // Cible par defaut
         String cible = new String("succes");
 

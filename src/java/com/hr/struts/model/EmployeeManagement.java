@@ -1,29 +1,17 @@
 package com.hr.struts.model;
 
 import com.hr.struts.exception.ServiceIndisponibleException;
-import com.hr.struts.model.dao.EmployeeDao;
 import com.hr.struts.model.dao.IEmployeeDao;
 import com.hr.struts.model.entities.Employee;
 import com.hr.struts.plugin.Factory;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
+import com.myapp.struts.Constants;
+import java.util.Properties;
 
 public class EmployeeManagement extends SuperModel implements IEmployeeManagement<Employee> {
 
     private IEmployeeDao eDao;
-
-    public EmployeeManagement() {
-        this.eDao = (IEmployeeDao) new Factory().instantiate("com.hr.struts.model.dao.EmployeeDao"); // factory a utiliser
-    }
 
     @Override
     public ArrayList<Employee> searchByTransfer(int type, String value) throws ServiceIndisponibleException {
@@ -50,13 +38,13 @@ public class EmployeeManagement extends SuperModel implements IEmployeeManagemen
     @Override
     public boolean delete(String ssNum) throws ServiceIndisponibleException {
         try {
-            if(eDao.ssNumExist(ssNum)) {
+            if (eDao.ssNumExist(ssNum)) {
                 return eDao.delete(ssNum);
-            } 
+            }
         } catch (Exception e) {
             throw new ServiceIndisponibleException("Delete indisponible", e);
         }
-        
+
         return false;
     }
 
@@ -74,32 +62,41 @@ public class EmployeeManagement extends SuperModel implements IEmployeeManagemen
 
     @Override
     public boolean add(String name, String ssNum, String phone) throws ServiceIndisponibleException {
-        
+
         try {
-            if(!eDao.ssNumExist(ssNum)) {
+            if (!eDao.ssNumExist(ssNum)) {
                 return eDao.create(name, ssNum, phone);
-            } 
+            }
         } catch (Exception ex) {
 
             throw new ServiceIndisponibleException("Service indisponible", ex);
         }
-        
+
         return false;
     }
 
     @Override
     public boolean update(String name, String ssNum, String phone) throws ServiceIndisponibleException {
-        
+
         try {
-            if(eDao.ssNumExist(ssNum)) {
+            if (eDao.ssNumExist(ssNum)) {
                 return eDao.update(name, ssNum, phone);
-            } 
+            }
         } catch (Exception ex) {
 
             throw new ServiceIndisponibleException("Service indisponible", ex);
         }
-        
+
         return false;
+    }
+
+    @Override
+    public void setDao(Properties properties) {
+        if (this.eDao == null) {
+            String daoClass = properties.getProperty(Constants.PROP_EMDAOCLASS);
+            this.eDao = (IEmployeeDao) new Factory().instantiate(daoClass);
+        }
+
     }
 
 }

@@ -7,6 +7,7 @@ package com.hr.struts.model;
 
 import com.hr.struts.exception.ServiceIndisponibleException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
  *
@@ -25,5 +26,5 @@ public interface IEmployeeManagement<Entity> {
 
     public ArrayList<Entity> findAll() throws ServiceIndisponibleException;
 
-    //public void setConnectionInfo(Properties properties);
+    public void setDao(Properties properties);
 }

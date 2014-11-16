@@ -14,6 +14,7 @@ public class Factory {
     public Object instantiate(String NomModelClass) {
         try {
             Class cls = Class.forName(NomModelClass);
+
             Object obj = cls.newInstance();
             return obj;
         } catch (Exception e) {

@@ -134,7 +134,6 @@
     
     <plug-in className="com.hr.struts.plugin.PluginLecture" >
         <set-property property="filePath" value="/Users/Sinthu/NetBeansProjects/HRStruts-TpCarine/src/java/com/myapp/struts/config.properties" />
-        <set-property property="EMClass" value="com.hr.struts.model.EmployeeManagement"/>
     </plug-in>
     
 </struts-config>
