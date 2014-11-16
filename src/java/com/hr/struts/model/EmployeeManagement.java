@@ -9,7 +9,7 @@ import java.util.List;
 import com.myapp.struts.Constants;
 import java.util.Properties;
 
-public class EmployeeManagement extends SuperModel implements IEmployeeManagement<Employee> {
+public class EmployeeManagement implements IEmployeeManagement<Employee> {
 
     private IEmployeeDao eDao;
 
