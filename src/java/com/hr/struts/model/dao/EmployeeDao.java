@@ -13,9 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 /**
  *
@@ -23,18 +20,10 @@ import javax.sql.DataSource;
  */
 public class EmployeeDao implements IEmployeeDao {
 
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            InitialContext context = new InitialContext();
-            DataSource dataSource = (DataSource) context.lookup("jdbc/myDatasource");
-            connection = dataSource.getConnection();
-        } catch (NamingException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return connection;
+    private DatabaseManager dbManager;
+
+    public EmployeeDao() {
+        dbManager = new DatabaseManager();
     }
 
     // Search for employees by something.
@@ -44,11 +33,10 @@ public class EmployeeDao implements IEmployeeDao {
             Connection conn = null;
             Statement stmt = null;
             ResultSet rs = null;
-
             Employee employe = null;
 
             try {
-                conn = getConnection();
+                conn = dbManager.getConnection();
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery(requete);
 
@@ -75,7 +63,7 @@ public class EmployeeDao implements IEmployeeDao {
             Statement stmt = null;
 
             try {
-                conn = getConnection();
+                conn = dbManager.getConnection();
                 stmt = conn.createStatement();
                 stmt.executeUpdate("INSERT INTO employes(name,ssnum,phone) "
                         + "VALUES ('" + name + "','" + ssNum + "','" + phone + "')");
@@ -96,7 +84,7 @@ public class EmployeeDao implements IEmployeeDao {
             Statement stmt = null;
 
             try {
-                conn = getConnection();
+                conn = dbManager.getConnection();
                 stmt = conn.createStatement();
 
                 stmt.executeUpdate("UPDATE employes SET name='" + name
@@ -119,7 +107,7 @@ public class EmployeeDao implements IEmployeeDao {
             Statement stmt = null;
 
             try {
-                conn = getConnection();
+                conn = dbManager.getConnection();
                 stmt = conn.createStatement();
 
                 stmt.executeUpdate("DELETE FROM employes WHERE ssnum='" + ssNum + "'");
@@ -159,7 +147,7 @@ public class EmployeeDao implements IEmployeeDao {
         try {
             Connection conn = null;
             try {
-                conn = getConnection();
+                conn = dbManager.getConnection();
                 Statement stmt = null;
                 ResultSet rs = null;
                 ArrayList<Employee> arrayList = new ArrayList<Employee>();
@@ -188,7 +176,7 @@ public class EmployeeDao implements IEmployeeDao {
         try {
             Connection conn = null;
             try {
-                conn = getConnection();
+                conn = dbManager.getConnection();
                 Statement stmt = null;
                 ResultSet rs = null;
                 int nb;
@@ -196,16 +184,16 @@ public class EmployeeDao implements IEmployeeDao {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT count(ssnum) as nb FROM employes "
                         + "WHERE ssnum = '" + ssNum + "'");
-                
+
                 rs.next();
                 nb = rs.getInt("nb");
-                
-                if(nb>=1) {
+
+                if (nb >= 1) {
                     return true;
                 } else {
                     return false;
                 }
-                
+
             } finally {
                 conn.close();
             }
